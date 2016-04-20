@@ -1,8 +1,8 @@
 module alu (
-            input [7:0]  dataInACC
-            input [7:0]  dataIn; //dataInA = Set Aside Register, dataIn = register from instruction
-            input [1:0]  control; //control = control from instruction
-            output [7:0] dataOut);	//dataOut = output from alu
+            output [7:0] dataOut,
+            input [7:0]  dataInACC,
+            input [7:0]  dataIn,
+            input [1:0]  control);
 
    reg [7:0]             dataOut;
    reg [7:0]             branchAddr;
@@ -10,7 +10,6 @@ module alu (
    wire [1:0]            control;
 
    always @ (dataInACC or dataIn)
-
      if(control == 2'b00) begin            //add
    		  dataOut = dataInACC + dataIn;
      end else if(control == 2'b01) begin   //nand
@@ -28,5 +27,4 @@ module alu (
    			   dataOut = 8'b0000_0000;
    		  end
      end
-
 endmodule

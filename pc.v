@@ -1,25 +1,24 @@
-module pc(din, dout, clk, control);
-   
-   input [7:0] din;
-   input clk, control;
-   output reg [7:0] dout;
+module pc(
+          output reg [7:0] dout,
+          input [7:0]      din,
+          input            clk,
+          input            control);
 
-   always @ (posedge clk)begin
-   	if(control == 1)begin
-   		dout = din;
-   	end
-   	else begin 
-   		dout = dout + 1;
-   	end 
+   always @ (posedge clk) begin
+   	  if(control == 1)begin
+   		   dout = din;
+   	  end else begin
+   		   dout = dout + 1;
+      end
    end
- endmodule
+endmodule
 
 module test;
    reg [7:0] stuff_in;
    wire [7:0] stuff_out;
    reg        clk, control;
 
-   pc pcounter(stuff_in, stuff_out, clk, control);
+   pc pcounter(stuff_out, stuff_in, clk, control);
 
    initial begin
    	  #1 clk = 0;
