@@ -16,7 +16,7 @@ module alu (
     	  dataOut = dataInACC ~& dataIn;
      end else if(control == 2'b10) begin   //branchAddr not zero
    		  if(dataInACC == 0) begin
-   			   dataOut = dataIn[4:0];
+   			   dataOut = dataIn[4:0];      //dataIn[4:0]?
    		  end else begin
    		     dataOut = 1;
    		  end
