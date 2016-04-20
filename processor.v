@@ -5,6 +5,7 @@
 `include "controlunit.v"
 `include "shiftregs.v"
 
-module processor()
+module processor;
+
 
 endmodule

@@ -13,7 +13,7 @@ module pc(
    end
 endmodule
 
-module test;
+/*module test;
    reg [7:0] stuff_in;
    wire [7:0] stuff_out;
    reg        clk, control;
@@ -36,4 +36,4 @@ module test;
    initial
      #100  $finish;
 
-endmodule
+endmodule*/

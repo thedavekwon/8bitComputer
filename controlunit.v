@@ -1,21 +1,21 @@
 module controlunit(
-                   input        clk,
-                   input [7:0]  instruction,
-                   output [1:0] cntr_alu,
-                   output       regWE,
-                   output       memWE,
-                   output       brnch,
-                   output       selAluIn,
-                   output       lw,
-                   output       accWE,
-                   output       selAccIn);
-   wire                         three_inst;
-   wire                         five_reg;
+                   input            clk,
+                   input [7:0]      instruction,
+                   output reg [1:0] cntr_alu,
+                   output reg       regWE,
+                   output reg       memWE,
+                   output reg       brnch,
+                   output reg       selAluIn,
+                   output reg       lw,
+                   output reg       accWE,
+                   output reg       selAccIn);
+   reg                              three_inst;
+   reg                              five_reg;
 
    always @ (instruction)
    	 {three_inst,five_reg} = instruction;
 
-   always begin
+   always @ (three_inst) begin
       case (three_inst)
         3'b000: begin
            memWE = 0;

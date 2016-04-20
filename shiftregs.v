@@ -18,7 +18,7 @@ module shiftregs(
    end
 endmodule
 
-module test;
+/*module test;
    reg [7:0] stuff_in;
    wire [7:0] stuff_out;
    reg [7:0]  addr;
@@ -45,4 +45,4 @@ module test;
    initial
      #100  $finish;
 
-endmodule
+endmodule*/
