@@ -3,11 +3,11 @@ module signexten(
           input [4:0]      din);
 
    always @ (din) begin
-    dout = {{3{din[4]}},din};	  
+    dout = {{3{din[4]}},din};
    end
 endmodule
 
-module test;
+/*module test;
    reg [4:0] stuff_in;
    wire [7:0] stuff_out;
 
@@ -17,10 +17,10 @@ module test;
       stuff_in = 5'b10101;
       $monitor("%b, %b",stuff_in, stuff_out);
       #40 stuff_in =5'b00100;
-  
+
    end
 
    initial
      #100  $finish;
 
-endmodule
+endmodule*/

@@ -11,6 +11,11 @@ module pc(
    		   dout = dout + 1;
       end
    end
+
+   initial begin
+      dout = 8'b1000_0000;
+   end
+
 endmodule
 
 /*module test;

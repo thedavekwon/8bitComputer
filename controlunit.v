@@ -8,9 +8,10 @@ module controlunit(
                    output reg       selAluIn,
                    output reg       lw,
                    output reg       accWE,
-                   output reg       selAccIn);
-   reg                              three_inst;
-   reg                              five_reg;
+                   output reg       selAccIn,
+                   output reg       selMemIn);
+   reg [2:0]                        three_inst;
+   reg [4:0]                        five_reg;
 
    always @ (instruction)
    	 {three_inst,five_reg} = instruction;
@@ -23,6 +24,7 @@ module controlunit(
            brnch = 0;
            accWE = 1;
            selAccIn = 0;
+           selMemIn = 0;
         end
         3'b001: begin
            memWE = 0;
@@ -30,6 +32,7 @@ module controlunit(
            brnch = 0;
            accWE = 1;
            selAccIn = 1;
+           selMemIn = 0;
         end
         3'b010: begin
            memWE = 0;
@@ -39,6 +42,7 @@ module controlunit(
            selAluIn = 1;
            lw = 0;
    		     cntr_alu = 2'b00;
+           selMemIn = 0;
         end
         3'b011: begin
            memWE = 0;
@@ -48,6 +52,7 @@ module controlunit(
            selAluIn = 1;
            lw = 0;
            cntr_alu = 2'b01;
+           selMemIn = 0;
         end
         3'b100: begin
            memWE = 0;
@@ -56,6 +61,7 @@ module controlunit(
            accWE = 0;
            selAluIn = 0;
    		     cntr_alu = 2'b10;
+           selMemIn = 0;
         end
         3'b101: begin
            memWE = 0;
@@ -65,12 +71,14 @@ module controlunit(
            selAluIn = 1;
            lw = 0;
    		     cntr_alu = 2'b11;
+           selMemIn = 0;
         end
         3'b110: begin
            memWE = 1;
            regWE = 0;
            brnch = 0;
            accWE = 0;
+           selMemIn = 1;
         end
         3'b111: begin
            memWE = 0;
@@ -78,6 +86,7 @@ module controlunit(
            brnch = 0;
            accWE = 0;
            lw = 1;
+           selMemIn = 1;
         end
    	  endcase
    end

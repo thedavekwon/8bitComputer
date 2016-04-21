@@ -1,6 +1,6 @@
 module shiftregs(
 	               output reg [7:0] data_out,
-	               input [7:0]      address,
+	               input [4:0]      address,
  	               input [7:0]      data_in,
                  input            enable,
                  input            clk);
