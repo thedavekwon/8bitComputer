@@ -11,8 +11,8 @@ module memory(
 
    initial begin
       $readmemb("mem.bin", mainmem);
-      for (i=0; i < 5; i=i+1)
-        $display("%d:%b",i,mainmem[i]);
+//for (i=0; i < 5; i=i+1)
+//      $display("%d:%b",i,mainmem[i]);
    end
 
    always @ (posedge clk) begin
