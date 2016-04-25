@@ -1,12 +1,19 @@
 module controlunit(
                    input            clk,
                    input [7:0]      instruction,
-                   output reg [1:0] cntr_alu, //2-bit, determines alu operation
-                   output reg       regWE, //enables RF write
-                   output reg       memWE, //enables write to DM
-                   output reg       brnch, //branch
-                   output reg       selAluIn, //mux determining 2nd input to ALU
-                   output reg       lw, //mux determines source of RF write
+                   output reg [1:0] cntr_alu, /*2-bit, determines alu operation
+                                               00 - Add
+                                               01 - Nand
+                                               10 - != 0
+                                               11 - Less*/
+                   output reg       regWE, //1 - enables RF write
+                   output reg       memWE, //1 - enables write to DM
+                   output reg       brnch, //1 - branch, determines next pc value
+                   output reg       selAluIn, /*mux determining 2nd input to ALU 
+                                                0 - 0
+                                                1 - from RF*/
+                   output reg       lw, /*mux determines source of RF write 
+                                          0 - */
                    output reg       accWE, //enables write to accumulator
                    output reg       selAccIn, //mux determines source of accumulator write
                    output reg       selMemIn); 
