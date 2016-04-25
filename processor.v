@@ -15,7 +15,7 @@ module processor;
    reg [4:0] immediate;
    reg [7:0] instr;
    wire [1:0] cntr_alu;
-   wire [7:0] addr, ext_imm, mem_addr, mem_out, regIn, regOut, alu_out, acc_out, acc_in;
+   wire [7:0] addr, ext_imm, mem_addr, mem_out, regIn, regOut, alu_out, acc_out, acc_in, alu_in;
 
 
    controlunit cu(clk, instr, cntr_alu, regWE, memWE, brnch, alu_sc, lw, accWE, acc_sc, mem_sc);
