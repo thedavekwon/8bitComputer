@@ -32,8 +32,8 @@ module processor;
    mux2to1 m3(acc_in, regOut, ext_imm, acc_sc);
    accumulator accum(acc_out, acc_in, accWE, clk);
 
-   mux2to1 m4(alu_in, 8'b0000_0000, regOut, alu_sc);
-   alu alu(alu_out, acc_out, alu_in, cntr_alu);
+   //mux2to1 m4(alu_in, 8'b0000_0000, regOut, alu_sc);
+   alu alu(alu_out, acc_out, /*alu_in*/regOut, cntr_alu, addr);
 
 
    signexten se(ext_imm, immediate);

@@ -56,7 +56,7 @@ module controlunit(
         end
         3'b100: begin
            memWE = 0;
-           regWE = 0;
+           regWE = 1; //Changed
            brnch = 1;
            accWE = 0;
            selAluIn = 0;
