@@ -20,7 +20,7 @@ module processor;
 
    controlunit cu(clk, instr, cntr_alu, regWE, memWE, brnch, alu_sc, lw, accWE, acc_sc, mem_sc);
 
-   pc pc(addr, ext_imm, clk, brnch);
+   pc pc(addr, regOut, clk, brnch);
 
    and(mem_scAdj, mem_sc, clk);
    mux2to1 m1(mem_addr, addr, acc_out, mem_scAdj);
@@ -32,7 +32,8 @@ module processor;
    mux2to1 m3(acc_in, regOut, ext_imm, acc_sc);
    accumulator accum(acc_out, acc_in, accWE, clk);
 
-   alu alu(alu_out, acc_out, regOut, cntr_alu);
+   mux2to1 m4(alu_in, 8'b0000_0000, regOut, alu_sc);
+   alu alu(alu_out, acc_out, alu_in, cntr_alu);
 
 
    signexten se(ext_imm, immediate);
