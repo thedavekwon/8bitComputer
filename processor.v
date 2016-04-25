@@ -15,12 +15,12 @@ module processor;
    reg [4:0] immediate;
    reg [7:0] instr;
    wire [1:0] cntr_alu;
-   wire [7:0] addr, ext_imm, mem_addr, mem_out, regIn, regOut, alu_out, acc_out, acc_in, alu_in;
+   wire [7:0] addr, ext_imm, mem_addr, mem_out, regIn, regOut, regBuf, alu_out, acc_out, acc_in, alu_in;
 
 
    controlunit cu(clk, instr, cntr_alu, regWE, memWE, brnch, alu_sc, lw, accWE, acc_sc, mem_sc);
 
-   pc pc(addr, regOut, clk, brnch);
+   pc pc(addr, regBuf, clk, brnch);
 
    and(mem_scAdj, mem_sc, clk);
    mux2to1 m1(mem_addr, addr, acc_out, mem_scAdj);
@@ -33,8 +33,7 @@ module processor;
    accumulator accum(acc_out, acc_in, accWE, clk);
 
    //mux2to1 m4(alu_in, 8'b0000_0000, regOut, alu_sc);
-   alu alu(alu_out, acc_out, /*alu_in*/regOut, cntr_alu, addr);
-
+   alu alu(alu_out, acc_out, /*alu_in*/regBuf, cntr_alu, addr);
 
    signexten se(ext_imm, immediate);
    always @ (instr)
@@ -42,6 +41,7 @@ module processor;
 
    always @ (posedge clk) begin
       instr <= mem_out;
+      regBuf <= regOut;
    end
 
    always #1 clk = !clk;
@@ -49,5 +49,13 @@ module processor;
    initial begin
       clk = 0;
    end
+
+endmodule
+
+module test;
+
+//   $dumpfile("proc_vcd.vcd");
+//	 $dumpvars(1, test.proc);
+
 
 endmodule
