@@ -13,9 +13,12 @@ module controlunit(
                                                 0 - 0
                                                 1 - from RF*/
                    output reg       lw, /*mux determines source of RF write 
-                                          0 - */
-                   output reg       accWE, //enables write to accumulator
-                   output reg       selAccIn, //mux determines source of accumulator write
+                                          0 - ALU
+                                          1 - DM*/
+                   output reg       accWE, //1 - enables write to accumulator
+                   output reg       selAccIn, /*mux determines source of accumulator write 
+                                                0 - RF
+                                                1 - Immediate, inst[4:0]*/
                    output reg       selMemIn); 
    reg [2:0]                        three_inst;
    reg [4:0]                        five_reg;
