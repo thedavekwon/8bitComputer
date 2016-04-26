@@ -19,9 +19,12 @@ module controlunit(
                    output reg       selAccIn, /*mux determines source of accumulator write 
                                                 0 - RF
                                                 1 - Immediate, inst[4:0]*/
-                   output reg       selMemIn); 
-   reg [2:0]                        three_inst;
-   reg [4:0]                        five_reg;
+                   output reg       selMemIn); /*mux determines source of address accessed in memory
+                                                b/c von Neumann architecture
+                                                0 - PC
+                                                1 - accumulator */
+   reg [2:0]                        three_inst; //instruction[7:5]
+   reg [4:0]                        five_reg; //instruction[4:0]
 
    always @ (instruction)
    	 {three_inst,five_reg} = instruction;
