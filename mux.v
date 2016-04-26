@@ -2,7 +2,7 @@ module mux2to1(
                output reg [7:0] dout,
                input [7:0]  din1,
                input [7:0]  din2,
-               input        select);
+               input        select); //1-bit address
 
    always @ (select) begin
       if(select == 1'b0) begin
