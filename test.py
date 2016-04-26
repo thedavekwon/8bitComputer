@@ -1,9 +1,5 @@
-def sign_exten(value, bits):
-	sign_bit = 1 << (bits-1)
-	return (value & (sign_bit - 1) - (value & sign_bit))
-
 def check(value):
-	if(value == "$zero"):
+	if(value == "$z0"):
 		return "00000"
 	if(value == "$v0"):
 		return "00001"
@@ -72,14 +68,15 @@ def check(value):
 
 fp = open("machine.asm" ,"r")
 
+bin5 = lambda x : ''.join(reversed( [str((x >> i) & 1) for i in range(5)] ) )
 
 for code in fp:
 #	code = p.readline()
 	if(code[0:4] == "acm "):
-		output = "000" + check(code[5:8])
+		output = "000" + check(code[4:7])
 	elif(code[0:4] == "acmi"):
-		output = "001" +  str(sign_exten(int(bin(int(code[5:7]))[2:7]),5))
-						
+		output = "001" + bin5(int(code[5:]))
+
 	elif(code[0:3] == "add"):
 		output = "010" + check(code[4:7])
 	elif(code[0:3] == "nand"):
