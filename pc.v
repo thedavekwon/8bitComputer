@@ -1,8 +1,8 @@
 module pc(
-          output reg [7:0] dout,
-          input [7:0]      din,
+          output reg [7:0] dout, //the current pc, input to instruction memory
+          input [7:0]      din, //branch target address
           input            clk,
-          input            control);
+          input            control); //brnch output of controlunit
 
    always @ (posedge clk) begin
    	  if(control == 1)begin
