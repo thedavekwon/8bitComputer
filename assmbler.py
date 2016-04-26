@@ -66,24 +66,43 @@ def check(value):
 
 
 
+
 fp = open("machine.asm" ,"r")
-fr = open("binary.b", "w")
 
 bin5 = lambda x : ''.join(reversed( [str((x >> i) & 1) for i in range(5)] ) )
 
+links = {}
+
+num = 1
+for link in fp:
+        link = link.strip()
+        # print link
+        if (link[-1] == ":"):
+                links[link[-4:-1]]=num
+        num = num + 1
+# print links
+
+fp.seek(0,0)
+output = ""
+
 for code in fp:
-#	code = p.readline()
+
+    # code = code.strip()
+
 	if(code[0:4] == "acm "):
 		output = "000" + check(code[4:7])
 	elif(code[0:4] == "acmi"):
-		output = "001" + bin5(int(code[5:]))
-
+            for link in links:
+                if (links.get(code[5:8]) != None):
+                        output = "001" + bin5(links.get(code[5:8]))
+                else:
+		                output = "001" + bin5(int(code[5:7]))
 	elif(code[0:3] == "add"):
 		output = "010" + check(code[4:7])
 	elif(code[0:3] == "nand"):
 		output = "011" + check(code[4:7])
-	elif(code[0:3] == "bnz"):
-		output = "100" + check(code[4:7])
+	elif(code[0:4] == "bnzl"):
+		output = "100" + check(code[5:8])
 	elif(code[0:3] == "slt"):
 		output = "101" + check(code[4:7])
 	elif(code[0:2] == "sw"):
@@ -93,8 +112,4 @@ for code in fp:
 	else:
 		output = "error"
 	print output
-	fr.write(output)
-	fr.write("\n")
-
 fp.close()
-fr.close()
