@@ -67,6 +67,7 @@ def check(value):
 
 
 fp = open("machine.asm" ,"r")
+fr = open("binary.b", "w")
 
 bin5 = lambda x : ''.join(reversed( [str((x >> i) & 1) for i in range(5)] ) )
 
@@ -92,5 +93,8 @@ for code in fp:
 	else:
 		output = "error"
 	print output
+	fr.write(output)
+	fr.write("\n")
 
 fp.close()
+fr.close()
