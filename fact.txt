@@ -1,4 +1,8 @@
 fact:
+	acm $ra
+	nand $ra
+	acm $s0 #$ra saved initially in $s1
+	add $ra
 	acmi -8
 	add $sp
 	acm $t0
@@ -22,11 +26,30 @@ fact:
 	slt $t1
 	acmi 1
 	nand $t1
-	bnz L1
+	bnzl L1
+
+	acm $v0
+	slt $v0
+	acmi 1
+	nand $v0
+	acmi 8
+	add $sp
+	bnzl $ra
 
 
 L1:
 	acmi -1
 	add $a0
-	bnz fact
-	
+	bnzl fact #fact saved in $s0
+	acm $sp
+	lw $a0
+	acmi 4
+	add $sp
+	acm $sp
+	lw $ra
+	acmi 4
+	add $sp
+	acm $a0
+	mul $v0 #pseudocode
+	acmi 1
+	bnzl $ra
