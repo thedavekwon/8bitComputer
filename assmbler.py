@@ -76,7 +76,7 @@ bin5 = lambda x : ''.join(reversed( [str((x >> i) & 1) for i in range(5)] ) )
 
 links = {}
 
-num = 1
+num = 0
 for link in fp:
         # print link
         link = link.strip()
@@ -89,18 +89,17 @@ for link in fp:
 fp.seek(0,0)
 output = ""
 
+count = 0
 for code in fp:
-
     # code = code.strip()
-
 	if(code[0:4] == "acm "):
 		output = "000" + check(code[4:7])
 	elif(code[0:4] == "acmi"):
-            for link in links:
-                if (links.get(code[5:8]) != None):
-                        output = "001" + bin5(links.get(code[5:8]))
-                else:
-		                output = "001" + bin5(int(code[5:7]))
+			for link in links:
+				if(links.get(code[5:8]) != None):
+					output = "001" + bin5(links.get(code[5:8]))
+				else:
+		        		output = "001" + bin5(int(code[5:7]))
 	elif(code[0:3] == "add"):
 		output = "010" + check(code[4:7])
 	elif(code[0:3] == "nand"):
@@ -115,5 +114,12 @@ for code in fp:
 		output = "111" + check(code[3:6])
 	else:
 		output = "error"
+	count = count + 1
 	print output
+
+while (count != 256):
+	output = "00000000"
+	count = count + 1
+	print output
+
 fp.close()
