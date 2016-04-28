@@ -1,3 +1,5 @@
+import sys
+
 def check(value):
 	if(value == "$z0"):
 		return "00000"
@@ -67,7 +69,8 @@ def check(value):
 
 
 
-fp = open("machine.asm" ,"r")
+# fp = open("mult.asm" ,"r")
+fp = sys.stdin
 
 bin5 = lambda x : ''.join(reversed( [str((x >> i) & 1) for i in range(5)] ) )
 
@@ -75,6 +78,7 @@ links = {}
 
 num = 1
 for link in fp:
+        # print link
         link = link.strip()
         # print link
         if (link[-1] == ":"):

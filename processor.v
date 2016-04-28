@@ -13,9 +13,9 @@ module processor;
    wire regWE, memWE, brnch, alu_sc, lw, accWE, acc_sc, mem_sc;
    reg [2:0] opcode;
    reg [4:0] immediate;
-   reg [7:0] instr;
+   reg [7:0] instr, regBuf;
    wire [1:0] cntr_alu;
-   wire [7:0] addr, ext_imm, mem_addr, mem_out, regIn, regOut, regBuf, alu_out, acc_out, acc_in, alu_in;
+   wire [7:0] addr, ext_imm, mem_addr, mem_out, regIn, regOut, alu_out, acc_out, acc_in, alu_in;
 
 
    controlunit cu(clk, instr, cntr_alu, regWE, memWE, brnch, alu_sc, lw, accWE, acc_sc, mem_sc);
@@ -50,12 +50,13 @@ module processor;
       clk = 0;
    end
 
-endmodule
 
-module test;
-
-//   $dumpfile("proc_vcd.vcd");
-//	 $dumpvars(1, test.proc);
-
+   initial begin
+      $dumpfile("proc_vcd.vcd");
+	    $dumpvars(1, processor);
+      #500 immediate = 00001;
+      #1 $display("$v0: %d", regOut);
+      #1 $finish;
+   end
 
 endmodule

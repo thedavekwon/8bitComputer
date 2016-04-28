@@ -12,6 +12,9 @@ module mux2to1(
    	     dout = din2;
       end
    end
+   initial begin
+      dout = 0;
+   end
 endmodule
 
 /*module mux4to1(din1, din2, din3, din4, mCtrl, dout);
