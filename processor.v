@@ -42,24 +42,22 @@ module processor;
    	 {opcode,immediate} = instr;
 
    always @ (posedge clk) begin
-      instr <= mem_out;
       regBuf <= regOut;
+   end
+
+   always @ (negedge clk) begin
+      instr <= mem_out;
    end
 
    always #1 clk = !clk;
 
    initial begin
-      clk = 0;
-   end
-
-
-   initial begin
-      reset = 0;
-      #1 reset = 1;
-      #2 reset = 0;
-      // instr = 8'b0000_0000;
       $dumpfile("proc_vcd.vcd");
 	    $dumpvars(1, processor);
+      clk = 0;
+      reset = 1;
+      #1 reset = 0;
+      // instr = 8'b0000_0000;
       #500 instr = 8'b0000_0001;
       #1 $display("$v0: %d", regOut);
       #1 $finish;
