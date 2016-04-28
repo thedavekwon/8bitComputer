@@ -9,7 +9,7 @@
 
 module processor;
 
-   reg clk;
+   reg clk, reset;
    wire regWE, memWE, brnch, alu_sc, lw, accWE, acc_sc, mem_sc;
    reg [2:0] opcode;
    reg [4:0] immediate;
@@ -18,9 +18,11 @@ module processor;
    wire [7:0] addr, ext_imm, mem_addr, mem_out, regIn, regOut, alu_out, acc_out, acc_in, alu_in;
 
 
-   controlunit cu(clk, instr, cntr_alu, regWE, memWE, brnch, alu_sc, lw, accWE, acc_sc, mem_sc);
+   controlunit cu(clk, opcode, cntr_alu, regWE, memWE, brnch, alu_sc, lw, accWE, acc_sc, mem_sc);
 
-   pc pc(addr, regBuf, clk, brnch);
+   or (clkr, clk, reset);
+
+   pc pc(addr, regBuf, clkr, brnch, reset);
 
    and(mem_scAdj, mem_sc, clk);
    mux2to1 m1(mem_addr, addr, acc_out, mem_scAdj);
@@ -52,9 +54,13 @@ module processor;
 
 
    initial begin
+      reset = 0;
+      #1 reset = 1;
+      #2 reset = 0;
+      // instr = 8'b0000_0000;
       $dumpfile("proc_vcd.vcd");
 	    $dumpvars(1, processor);
-      #500 immediate = 00001;
+      #500 instr = 8'b0000_0001;
       #1 $display("$v0: %d", regOut);
       #1 $finish;
    end

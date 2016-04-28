@@ -1,6 +1,6 @@
 module controlunit(
                    input            clk,
-                   input [7:0]      instruction,
+                   input [2:0]      opcode,
                    output reg [1:0] cntr_alu, /*2-bit, determines alu operation
                                                00 - Add
                                                01 - Nand
@@ -9,14 +9,14 @@ module controlunit(
                    output reg       regWE, //1 - enables RF write
                    output reg       memWE, //1 - enables write to DM
                    output reg       brnch, //1 - branch, determines next pc value
-                   output reg       selAluIn, /*mux determining 2nd input to ALU 
+                   output reg       selAluIn, /*mux determining 2nd input to ALU
                                                 0 - 0
                                                 1 - from RF*/
-                   output reg       lw, /*mux determines source of RF write 
+                   output reg       lw, /*mux determines source of RF write
                                           0 - ALU
                                           1 - DM*/
                    output reg       accWE, //1 - enables write to accumulator
-                   output reg       selAccIn, /*mux determines source of accumulator write 
+                   output reg       selAccIn, /*mux determines source of accumulator write
                                                 0 - RF
                                                 1 - Immediate, inst[4:0]*/
                    output reg       selMemIn); /*mux determines source of address accessed in memory
@@ -26,11 +26,8 @@ module controlunit(
    reg [2:0]                        three_inst; //instruction[7:5]
    reg [4:0]                        five_reg; //instruction[4:0]
 
-   always @ (instruction)
-   	 {three_inst,five_reg} = instruction;
-
-   always @ (three_inst) begin
-      case (three_inst)
+   always @ (opcode) begin
+      case (opcode)
         3'b000: begin //ACM
            memWE = 0;
            regWE = 0;
