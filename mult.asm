@@ -1,3 +1,7 @@
+acm $sp
+slt $sp
+acmi 255
+add $sp
 acm $a0
 slt $a0
 acm $a1
