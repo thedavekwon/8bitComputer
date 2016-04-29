@@ -2,22 +2,20 @@ module pc(
           output reg [7:0] dout, //the current pc, input to instruction memory
           input [7:0]      din, //branch target address
           input            clk,
-          input            control, //brnch output of controlunit
-          input            reset);
+          input            control); //brnch output of controlunit
 
    always @ (posedge clk) begin
    	  if(control == 1)begin
    		   dout = din; //next instruction is at branch target address
-      end else if (reset = 1) begin
-         dout = 8'b0000_0000;
    	  end else begin
    		   dout = dout + 1; //move to subsequent instruction
       end
    end
 
-   // always @ (negedge reset) begin
-   //    dout = 8'b0000_0000;
-   // end
+   initial begin
+      dout = 8'b0000_0000;
+   end
+
 endmodule
 
 /*module test;

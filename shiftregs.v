@@ -7,14 +7,21 @@ module shiftregs(
 
    reg [7:0]                      regfile [0:31];
 
-   always @ (posedge clk) begin
-      data_out = regfile[address];
+   always @ (address) begin
+     data_out = regfile[address];
    end
 
    always @ (negedge clk) begin
       if (enable) begin
    	     regfile[address] = data_in;
       end
+   end
+
+   integer i;
+   initial begin
+      for (i = 0;i<32;i=i+1)
+        regfile[i] = 0;
+      regfile[29] = 8'b1111_1111;
    end
 endmodule
 

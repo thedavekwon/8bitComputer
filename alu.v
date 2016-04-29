@@ -5,7 +5,7 @@ module alu (
             input [1:0]  control,
             input [7:0]  pc);
 
-   always @ (dataInACC or dataIn)
+   always @ (dataInACC || dataIn || control)
      if(control == 2'b00) begin            //add
    		  dataOut = dataInACC + dataIn;
      end else if(control == 2'b01) begin   //nand
@@ -18,9 +18,12 @@ module alu (
    		  end
      end else if(control == 2'b11) begin   //set less than
    		  if(dataInACC < dataIn) begin
-   			   dataOut = 8'b0000_0001;
+   			  assign dataOut = 8'b0000_0001;
   	 	  end else begin
-   			   dataOut = 8'b0000_0000;
+   			   assign dataOut = 8'b0000_0000;
    		  end
      end
+
+   initial dataOut = 0;
+
 endmodule

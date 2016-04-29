@@ -15,7 +15,7 @@ module memory(
 //      $display("%d:%b",i,mainmem[i]);
    end
 
-   always @ (posedge clk) begin
+   always @ (address) begin
       data_out = mainmem[address];
    end
 
