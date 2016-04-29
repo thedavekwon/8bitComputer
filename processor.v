@@ -48,7 +48,7 @@ module processor;
    always #2 clk = !clk;
 
    initial begin
-      clk = 0;
+      clk = 1;
    end
 
 

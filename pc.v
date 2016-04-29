@@ -13,7 +13,7 @@ module pc(
    end
 
    initial begin
-      dout = 8'b0000_0000;
+      dout = 8'b1111_1111;
    end
 
 endmodule
