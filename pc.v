@@ -6,14 +6,14 @@ module pc(
 
    always @ (posedge clk) begin
    	  if(control == 1)begin
-   		   dout = din; //next instruction is at branch target address
+   		   dout <= din; //next instruction is at branch target address
    	  end else begin
-   		   dout = dout + 1; //move to subsequent instruction
+   		   dout <= dout + 1; //move to subsequent instruction
       end
    end
 
    initial begin
-      dout = 8'b0000_0000;
+      dout = 8'b1111_1111;
    end
 
 endmodule

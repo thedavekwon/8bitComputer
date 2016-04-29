@@ -21,7 +21,7 @@ module memory(
 
    always @ (negedge clk) begin
       if (write_enable) begin
-   	     mainmem[address] = data_in;
+   	     mainmem[address] <= data_in;
       end
    end
 endmodule

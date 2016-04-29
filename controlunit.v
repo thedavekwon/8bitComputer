@@ -1,6 +1,6 @@
 module controlunit(
                    input            clk,
-                   input [7:0]      instruction,
+                   input [2:0]      opcode,
                    output reg [1:0] cntr_alu, /*2-bit, determines alu operation
                                                00 - Add
                                                01 - Nand
@@ -23,15 +23,9 @@ module controlunit(
                                                 b/c von Neumann architecture
                                                 0 - PC
                                                 1 - accumulator */
-   reg [2:0]                        three_inst; //instruction[7:5]
-   reg [4:0]                        five_reg; //instruction[4:0]
 
-   always @ (instruction)
-   	 {three_inst,five_reg} = instruction;
-
-
-   always @ (three_inst) begin
-      case (three_inst)
+   always @ (opcode) begin
+      case (opcode)
         3'b000: begin //ACM
            memWE = 0;
            regWE = 0;
