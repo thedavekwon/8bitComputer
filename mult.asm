@@ -1,6 +1,6 @@
 acm $sp
 slt $sp
-acmi 255
+acmi -1
 add $sp
 acm $a0
 slt $a0
@@ -44,5 +44,9 @@ acmi ML1
 add $t2
 acm $t1
 bnzl $t2
+acm $t5 END:
+slt $t5
+acmi END
+add $t5
 acmi 0
-bnzl $ra
+bnzl $t5
