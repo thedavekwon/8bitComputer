@@ -76,7 +76,7 @@ bin5 = lambda x : ''.join(reversed( [str((x >> i) & 1) for i in range(5)] ) )
 
 links = {}
 
-num = 1
+num = 0
 for link in fp:
         # print link
         link = link.strip()
