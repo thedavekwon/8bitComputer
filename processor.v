@@ -39,7 +39,7 @@ module processor;
    always @ (instr)
    	 {opcode,immediate} = instr;
 
-   always @ (addr) begin
+   always @ (posedge clk) begin
       //if(~(memWE || lw)) begin
          instr = mem_out;
       //end
@@ -53,11 +53,10 @@ module processor;
 
 
    initial begin
+      $monitor("$v0: %d", regfile.regfile[1]);
       $dumpfile("proc_vcd.vcd");
 	    $dumpvars(1, processor);
-      #3000 immediate = 00001;
-      #1 $display("$v0: %d", regOut);
-      #1 $finish;
+      #3000 $finish;
    end
 
 endmodule

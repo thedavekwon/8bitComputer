@@ -7,7 +7,7 @@ module shiftregs(
 
    reg [7:0]                      regfile [0:31];
 
-   always @ (address) begin
+   always @ (address or data_in or clk) begin
      data_out = regfile[address];
    end
 

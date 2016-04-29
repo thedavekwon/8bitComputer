@@ -6,7 +6,7 @@ module accumulator(
 
    reg [7:0]                      acc;
 
-   always @ (clk) begin
+   always @ (data_in or clk) begin
       data_out = acc;
    end
 

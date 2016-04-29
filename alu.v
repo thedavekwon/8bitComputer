@@ -11,7 +11,7 @@ module alu (
      end else if(control == 2'b01) begin   //nand
     	  dataOut = dataInACC ~& dataIn;
      end else if(control == 2'b10) begin   //branchAddr not zero
-   		  if(dataInACC != /*dataIn*/ 8'b0000_0000) begin
+   		  if(dataInACC == /*dataIn*/ 8'b0000_0000) begin
    			   dataOut = /*8'b0000_0001*/ pc + 1;
    		  end else begin
    		     dataOut = /*8'b0000_0000*/ dataIn;
