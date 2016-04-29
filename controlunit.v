@@ -29,6 +29,7 @@ module controlunit(
    always @ (instruction)
    	 {three_inst,five_reg} = instruction;
 
+
    always @ (three_inst) begin
       case (three_inst)
         3'b000: begin //ACM
@@ -102,5 +103,8 @@ module controlunit(
            selMemIn = 1;
         end
    	  endcase
-   end
+    end
+    
+    initial cntr_alu = 0;
+   
 endmodule
