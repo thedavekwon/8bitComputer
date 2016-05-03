@@ -36,13 +36,15 @@ module processor;
    alu alu(alu_out, acc_out, /*alu_in*/regOut, cntr_alu, addr);
 
    signexten se(ext_imm, immediate);
-   always @ (instr)
+   always @ (instr) begin
    	 {opcode,immediate} = instr;
+      if (regfile.regfile[31] != 8'b0000_0000) begin
+         $finish;
+      end
+   end
 
    always @ (posedge clk) begin
-      //if(~(memWE || lw)) begin
-         instr = mem_out;
-      //end
+      instr = mem_out;
    end
 
    always #2 clk = !clk;

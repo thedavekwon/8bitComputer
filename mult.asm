@@ -30,4 +30,4 @@ acmi 0
 slt $t1 //compare 0 < a1
 bnzl ML1 $t1
 acmi 1
-bnzl END 001 END:
+add $HR

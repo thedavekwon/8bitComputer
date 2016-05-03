@@ -61,9 +61,9 @@ def check(value):
 		return "11100"
 	if(value == "$sp"):
 		return "11101"
-	if(value == "$fp"):
-		return "11110"
 	if(value == "$ra"):
+		return "11110"
+	if(value == "$HR"):
 		return "11111"
 
 # fp = open("mult.asm" ,"r")
