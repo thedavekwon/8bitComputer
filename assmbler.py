@@ -75,12 +75,12 @@ links = {}
 
 num = 0
 for link in fp:
-        # print link
-        link = link.strip()
-        # print link
-        if (link[-1] == ":"):
-                links[link[-4:-1]]=num
-        num = num + 1
+		# print link
+		link = link.strip()
+		# print link
+		if (link[-1] == ":"):
+				links[link[-4:-1]]=num
+		num = num + 1
 # print links
 
 fp.seek(0,0)
@@ -88,7 +88,7 @@ output = ""
 
 count = 0
 for code in fp:
-    # code = code.strip()
+	# code = code.strip()
 	if(code[0:4] == "acm "):
 		output = "000" + check(code[4:7])
 	elif(code[0:4] == "acmi"):
@@ -99,17 +99,25 @@ for code in fp:
 		output = "011" + check(code[4:7])
 	elif(code[0:4] == "bnzl"):
 		if(links.get(code[5:8]) != None):
-			linesadded = 4
-			num = links.get(code[5:8])
+			onum = links.get(code[5:8])
+			linesadded = 3 + (onum/15) + ((onum/15)>0) + (2*((onum%15)>0))
+			num = onum if (onum < count) else onum + linesadded
+			prevnum = onum
+			while prevnum != num:
+					prevnum = num
+					# print num
+					linesadded = 3 + (num/15) + ((num/15)>0) + (2*((num%15)>0))
+					# print linesadded
+					num = onum + linesadded
 			print "00011110"
 			print "10111110"
 			if (num > 15):
 				print "00101111"
 				for loop in range(num/15):
 					print "01011110"
-					linesadded = linesadded + 1
 			if (num % 15 != 0):
 				print "001" + bin5(num % 15)
+				print "01011110"
 			comp = code[9:12]
 			if (comp[0] == "$"):
 				print "000" + check(code[9:12])
@@ -121,7 +129,7 @@ for code in fp:
 			count =  count + linesadded
 			output = "10011110"
 		else:
-		    output = "100" + check(code[5:8])
+			output = "100" + check(code[5:8])
 	elif(code[0:3] == "slt"):
 		output = "101" + check(code[4:7])
 	elif(code[0:2] == "sw"):
@@ -131,7 +139,7 @@ for code in fp:
 	else:
 		output = "error"
 	count = count + 1
-	print output
+	print output #+ " " + code
 
 while (count != 256):
 	output = "00000000"

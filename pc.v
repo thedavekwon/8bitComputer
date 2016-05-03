@@ -3,13 +3,15 @@ module pc(
           input [7:0]      din, //branch target address
           input            clk,
           input            control); //brnch output of controlunit
-
    always @ (posedge clk) begin
+      if (control != 1)
+         dout <= dout + 1; //move to subsequent instruction
+   end
+
+   always @ (negedge clk) begin
    	  if(control == 1)begin
    		   dout <= din; //next instruction is at branch target address
-   	  end else begin
-   		   dout <= dout + 1; //move to subsequent instruction
-      end
+   	  end
    end
 
    initial begin

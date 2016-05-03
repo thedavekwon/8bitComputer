@@ -9,14 +9,14 @@ module controlunit(
                    output reg       regWE, //1 - enables RF write
                    output reg       memWE, //1 - enables write to DM
                    output reg       brnch, //1 - branch, determines next pc value
-                   output reg       selAluIn, /*mux determining 2nd input to ALU 
+                   output reg       selAluIn, /*mux determining 2nd input to ALU
                                                 0 - 0
                                                 1 - from RF*/
-                   output reg       lw, /*mux determines source of RF write 
+                   output reg       lw, /*mux determines source of RF write
                                           0 - ALU
                                           1 - DM*/
                    output reg       accWE, //1 - enables write to accumulator
-                   output reg       selAccIn, /*mux determines source of accumulator write 
+                   output reg       selAccIn, /*mux determines source of accumulator write
                                                 0 - RF
                                                 1 - Immediate, inst[4:0]*/
                    output reg       selMemIn); /*mux determines source of address accessed in memory
@@ -98,7 +98,11 @@ module controlunit(
         end
    	  endcase
     end
-    
-    initial cntr_alu = 0;
-   
+
+    initial begin
+       cntr_alu = 0;
+       brnch = 0;
+       selMemIn = 0;
+
+    end
 endmodule

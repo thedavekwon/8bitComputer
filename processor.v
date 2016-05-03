@@ -20,10 +20,10 @@ module processor;
 
    controlunit cu(clk, opcode, cntr_alu, regWE, memWE, brnch, alu_sc, lw, accWE, acc_sc, mem_sc);
 
-   pc pc(addr, regOut, clk, brnch);
+   pc pc(addr, alu_out, clk, brnch);
 
-   and(mem_scAdj, mem_sc, clk);
-   mux2to1 m1(mem_addr, addr, acc_out, mem_scAdj);
+   // and(mem_scAdj, mem_sc, clk);
+   mux2to1 m1(mem_addr, addr, acc_out, mem_sc/*Adj*/);
    memory mem(mem_out, mem_addr, regOut, memWE, clk);
 
    mux2to1 m2(regIn, alu_out, mem_out, lw);
@@ -44,18 +44,18 @@ module processor;
    end
 
    always @ (posedge clk) begin
-      instr = mem_out;
+        instr <= mem_out;
    end
 
    always #2 clk = !clk;
 
    initial begin
-      clk = 1;
+      clk = 0;
    end
 
 
    initial begin
-      $monitor("$v0: %d", regfile.regfile[1]);
+                                 $monitor("$v0: %d, $t1: %d, $a0: %d, $a1 %d, $ra: %d $sp: %d", regfile.regfile[1], regfile.regfile[18], regfile.regfile[5], regfile.regfile[6], regfile.regfile[30], regfile.regfile[29]);
       $dumpfile("proc_vcd.vcd");
 	    $dumpvars(1, processor);
       #3000 $finish;
