@@ -28,18 +28,6 @@ acm $a1
 add $t1 //put a1 into t1
 acmi 0
 slt $t1 //compare 0 < a1
-acm $t2 //reset t2
-slt $t2 //...
-acmi ML1 //like j END
-add $t2 //...
-acm $t1 //is 0 < a1
-bnzl $t2 //...
-acm $t5 //Nothing loop
-slt $t5
-acmi 15
-add $t5
-add $t5
-acmi 7
-add $t5
+bnzl ML1 $t1
 acmi 1
-bnzl $t5
+bnzl END 001 END:

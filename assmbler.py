@@ -95,17 +95,36 @@ for code in fp:
 	if(code[0:4] == "acm "):
 		output = "000" + check(code[4:7])
 	elif(code[0:4] == "acmi"):
-			for link in links:
-				if(links.get(code[5:8]) != None):
-					output = "001" + bin5(links.get(code[5:8]))
-				else:
-		        		output = "001" + bin5(int(code[5:7]))
+            output = "001" + bin5(int(code[5:7]))
 	elif(code[0:3] == "add"):
 		output = "010" + check(code[4:7])
 	elif(code[0:3] == "nand"):
 		output = "011" + check(code[4:7])
 	elif(code[0:4] == "bnzl"):
-		output = "100" + check(code[5:8])
+			if(links.get(code[5:8]) != None):
+                linesadded = 4
+                num = links.get(code[5:8])
+                print "00011110"
+                print "10111110"
+                if (num > 15):
+                        print "00101111"
+                        for loop in range(num/15):
+                                print "01011110"
+                                linesadded = linesadded + 1
+                if (num % 15 != 0):
+                        print "001" + bin5(num % 15)
+                comp = code[9:12]
+                if (comp[0] == "$"):
+                        print "000" + check(code[9:12])
+                else:
+                        print "001" + bin5(int(comp))
+                for ind in links:
+                        if (links[ind] > count):
+                                links[ind] = links[ind] + linesadded
+                count =  count + linesadded
+                output = "10011110"
+			else:
+		        output = "100" + check(code[5:8])
 	elif(code[0:3] == "slt"):
 		output = "101" + check(code[4:7])
 	elif(code[0:2] == "sw"):
