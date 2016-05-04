@@ -41,12 +41,9 @@ acm $v0
 add $a1
 bnzl MUL 001	
 acm $sp	
-lw $a0 //
+lw $ra
 acmi 1
 add $sp
-acmi 1
-acm $sp
-lw $ra
 bnzl $ra
 acm $t0 MUL:
 slt $t0 //init t0
