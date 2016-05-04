@@ -4,7 +4,7 @@ module pc(
           input            clk,
           input            control); //brnch output of controlunit
    always @ (posedge clk) begin
-      if (control != 1)
+      //if (control != 1)
          dout <= dout + 1; //move to subsequent instruction
    end
 
