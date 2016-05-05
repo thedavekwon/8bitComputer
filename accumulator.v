@@ -1,7 +1,7 @@
 module accumulator(
-	               output reg [7:0] data_out,
- 	               input [7:0]      data_in,
-                 input            enable,
+	               output reg [7:0] data_out, //first input to ALU
+ 	               input [7:0]      data_in, //from instruction[4:0] or RF
+                 input            enable, //AccWE from control
                  input            clk);
 
    reg [7:0]                      acc;
@@ -12,7 +12,7 @@ module accumulator(
 
    always @ (negedge clk) begin
       if (enable) begin
-   	     acc = data_in;
+   	     acc = data_in; //write on negative edge
       end
    end
 endmodule
