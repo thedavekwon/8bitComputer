@@ -1,11 +1,11 @@
-module memory(
+module memory( //Harvard architecture, 
 	output reg [7:0] data_out,
-	input [7:0]      address,
+	input [7:0]      address, 
  	input [7:0]      data_in,
   input            write_enable,
   input            clk);
 
-   reg [7:0]       mainmem [0:255];
+   reg [7:0]       mainmem [0:255]; //256 lines, 1 word per line, 1 byte per word
 
    integer         i;
 
