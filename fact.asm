@@ -1,7 +1,7 @@
 bnzl STR 001 //branch to start
 acmi 1 //Accumulate one into halt register
 add $HR //...
-acmi 3 STR:
+acmi 5 STR:
 add $a0 //set factorial parameter
 acmi -1 FAC:
 add $sp

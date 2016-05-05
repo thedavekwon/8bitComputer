@@ -9,18 +9,19 @@
 
 module processor;
 
-   reg clk;
+   reg clk, acc_n0;
    wire regWE, memWE, brnch, alu_sc, lw, accWE, acc_sc, mem_sc;
    reg [2:0] opcode;
    reg [4:0] immediate;
-   reg [7:0] instr;
+   reg [7:0] instr, regBuf;
    wire [1:0] cntr_alu;
    wire [7:0] addr, ext_imm, mem_addr, mem_out, regIn, regOut, alu_out, acc_out, acc_in, alu_in;
 
 
    controlunit cu(clk, opcode, cntr_alu, regWE, memWE, brnch, alu_sc, lw, accWE, acc_sc, mem_sc);
 
-   pc pc(addr, alu_out, clk, brnch);
+   and(brnch_yes, acc_n0, brnch);
+   pc pc(addr, regBuf, clk, brnch_yes);
 
    and(mem_scAdj, mem_sc, clk);
    mux2to1 m1(mem_addr, addr, acc_out, mem_scAdj);
@@ -43,8 +44,16 @@ module processor;
       end
    end
 
+   always @ (acc_out) begin
+      acc_n0 = acc_out[0] | acc_out[1] | acc_out[2] | acc_out[3] | acc_out[4] | acc_out[5] | acc_out[6] | acc_out[7];
+   end
+
+   always @ (regOut) begin
+      if (clk)
+        regBuf <= regOut;
+   end
    always @ (posedge clk) begin
-        instr <= mem_out;
+      instr <= mem_out;
    end
 
    always #2 clk = !clk;
