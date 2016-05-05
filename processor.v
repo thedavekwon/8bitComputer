@@ -56,7 +56,7 @@ module processor;
       instr <= mem_out;
    end
 
-   always #2 clk = !clk;
+   always #1 clk = !clk;
 
    initial begin
       clk = 1;
