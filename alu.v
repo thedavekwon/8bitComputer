@@ -1,8 +1,8 @@
 module alu (
             output reg [7:0] dataOut,
-            input [7:0]  dataInACC,
-            input [7:0]  dataIn,
-            input [1:0]  control,
+            input [7:0]  dataInACC, //output of accumulator a.k.a. data_out
+            input [7:0]  dataIn, //input from mux controled by selAluIn
+            input [1:0]  control, //determines function, cntr_alu from controlunit
             input [7:0]  pc);
 
    always @ (pc or control or dataIn or dataInACC) begin

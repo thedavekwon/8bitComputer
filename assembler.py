@@ -1,6 +1,6 @@
 import sys
 
-def check(value):
+def check(value): #function for translation of registers
 	if(value == "$z0"):
 		return "00000"
 	if(value == "$v0"):
@@ -87,12 +87,12 @@ fp.seek(0,0)
 output = ""
 
 count = 0
-for code in fp:
+for code in fp: #translation of instruction 
 	# code = code.strip()
 	if(code[0:4] == "acm "):
-		output = "000" + check(code[4:7])
+		output = "000" + check(code[4:7]) #(output = operation + register)
 	elif(code[0:4] == "acmi"):
-		output = "001" + bin5(int(code[5:7]))
+		output = "001" + bin5(int(code[5:7])) #(output = operation + immediate)
 	elif(code[0:3] == "add"):
 		output = "010" + check(code[4:7])
 	elif(code[0:3] == "nand"):
