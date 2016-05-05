@@ -1,9 +1,9 @@
 all: run
 
-run: mem processor.out
+run: mem processor
 	./processor.out
 
-processor.out:
+processor:
 	iverilog processor.v -o processor.out
 
 time:

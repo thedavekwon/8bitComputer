@@ -58,7 +58,7 @@ module processor;
       $monitor("TIME: %d, $v0: %d, $t1: %d, $a0: %d, $a1 %d, $ra: %d $sp: %d", $time, regfile.regfile[1], regfile.regfile[18], regfile.regfile[5], regfile.regfile[6], regfile.regfile[30], regfile.regfile[29]);
       $dumpfile("proc_vcd.vcd");
 	    $dumpvars(1, processor);
-      #3000 $finish;
+      #10000 $finish;
    end
 
 endmodule
