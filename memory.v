@@ -1,7 +1,7 @@
 module memory( //von Neumann architecture, combined DM and IM
 	output reg [7:0] data_out,
-	input [7:0]      address, 
- 	input [7:0]      data_in,
+	input [7:0]      address, //input from mux determines whether address is to stack or text
+ 	input [7:0]      data_in, //input from accumulator
   input            write_enable,
   input            clk);
 
