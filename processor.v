@@ -39,7 +39,7 @@ module processor;
    signexten se(ext_imm, immediate);
    always @ (instr) begin
    	 {opcode,immediate} = instr;
-      if (regfile.regfile[31] != 8'b0000_0000) begin //If not HLT, proceed
+      if (regfile.regfile[31] != 8'b0000_0000) begin //If HLT, stop
          $finish;
       end
    end
