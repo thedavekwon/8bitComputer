@@ -1,9 +1,9 @@
 module signexten(
-          output reg [7:0] dout,
+          output reg [7:0] dout, //extended value
           input [4:0]      din);
 
    always @ (din) begin
-    dout = {{3{din[4]}},din};
+    dout = {{3{din[4]}},din}; //concatenates number & 3 of its MSB
    end
 endmodule
 
