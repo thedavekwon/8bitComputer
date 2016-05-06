@@ -20,17 +20,17 @@ module processor;
 
    controlunit cu(clk, opcode, cntr_alu, regWE, memWE, brnch, alu_sc, lw, accWE, acc_sc, mem_sc);
 
-   and(brnch_yes, acc_n0, brnch);
+   and(brnch_yes, acc_n0, brnch); //branch taken if control signal && ACM != 0
    pc pc(addr, regBuf, clk, brnch_yes);
 
-   and(mem_scAdj, mem_sc, clk);
-   mux2to1 m1(mem_addr, addr, acc_out, mem_scAdj);
+   and(mem_scAdj, mem_sc, clk); //DM accessed if clock HIGH && control signal
+   mux2to1 m1(mem_addr, addr, acc_out, mem_scAdj); //determines source of memory address, pc or accumulator
    memory mem(mem_out, mem_addr, regOut, memWE, clk);
 
-   mux2to1 m2(regIn, alu_out, mem_out, lw);
-   shiftregs regfile(regOut, immediate, regIn, regWE, clk);
+   mux2to1 m2(regIn, alu_out, mem_out, lw); //determines source of RF write, ALU or DM
+   shiftregs regfile(regOut, immediate, regIn, regWE, clk); //RF
 
-   mux2to1 m3(acc_in, regOut, ext_imm, acc_sc);
+   mux2to1 m3(acc_in, regOut, ext_imm, acc_sc); //determines soucre of next ACM value, RF or instruction[4:0]
    accumulator accum(acc_out, acc_in, accWE, clk);
 
    //mux2to1 m4(alu_in, 8'b0000_0000, regOut, alu_sc);
@@ -39,7 +39,7 @@ module processor;
    signexten se(ext_imm, immediate);
    always @ (instr) begin
    	 {opcode,immediate} = instr;
-      if (regfile.regfile[31] != 8'b0000_0000) begin
+      if (regfile.regfile[31] != 8'b0000_0000) begin //If not HLT, proceed
          $finish;
       end
    end
@@ -52,7 +52,7 @@ module processor;
       if (clk)
         regBuf <= regOut;
    end
-   always @ (posedge clk) begin
+   always @ (posedge clk) begin //read instructions from text segment
       instr <= mem_out;
    end
 
