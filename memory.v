@@ -1,8 +1,8 @@
 module memory( //von Neumann architecture, combined DM and IM
-	output reg [7:0] data_out,
-	input [7:0]      address, 
- 	input [7:0]      data_in,
-  input            write_enable,
+	output reg [7:0] data_out, //either instruction or data
+	input [7:0]      address, //input from mux determines whether address is to stack or text
+ 	input [7:0]      data_in, //input from accumulator
+  input            write_enable, //control signal
   input            clk);
 
    reg [7:0]       mainmem [0:255]; //256 lines, 1 word per line, 1 byte per word
@@ -10,18 +10,18 @@ module memory( //von Neumann architecture, combined DM and IM
    integer         i;
 
    initial begin
-      $readmemb("mem.bin", mainmem);
+      $readmemb("mem.bin", mainmem); //assembled instructions loaded into text segment
 //for (i=0; i < 5; i=i+1)
 //      $display("%d:%b",i,mainmem[i]);
    end
 
    always @ (address) begin
-      data_out = mainmem[address];
+      data_out = mainmem[address]; //outputs instruction at pc
    end
 
    always @ (negedge clk) begin
       if (write_enable) begin
-   	     mainmem[address] <= data_in;
+   	     mainmem[address] <= data_in; //write data on negative clock edge
       end
    end
 endmodule
