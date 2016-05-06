@@ -20,7 +20,7 @@ acmi 0
 slt $t1 //compare 0 < a1
 bnzl ML1 $t1
 acm $sp
-lw $ra
+lw $ra #restore return address
 acmi 1
-add $sp
-add $HR
+add $sp #restore stack pointer
+add $HR #stop program
