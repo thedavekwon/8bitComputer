@@ -1,4 +1,4 @@
-module memory( //Harvard architecture, 
+module memory( //von Neumann architecture, combined DM and IM
 	output reg [7:0] data_out,
 	input [7:0]      address, 
  	input [7:0]      data_in,
