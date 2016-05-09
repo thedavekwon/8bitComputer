@@ -40,6 +40,7 @@ module processor;
    always @ (instr) begin
    	 {opcode,immediate} = instr;
       if (regfile.regfile[31] != 8'b0000_0000) begin //If HLT, stop
+         $display("TIME DONE: %d", $time);
          $finish;
       end
    end
@@ -61,10 +62,11 @@ module processor;
    initial begin
       clk = 1;
    end
-
+   wire signed [7:0] print;
+   assign print = $signed(regfile.regfile[1]);
 
    initial begin
-      $monitor("TIME: %d, $v0: %d, $t1: %d, $a0: %d, $a1 %d, $ra: %d $sp: %d", $time, regfile.regfile[1], regfile.regfile[18], regfile.regfile[5], regfile.regfile[6], regfile.regfile[30], regfile.regfile[29]);
+      $monitor("$v0: %d "/*,t1: %d, $a0: %d, $a1 %d, $ra: %d $sp: %d"*/, print);//, regfile.regfile[18], regfile.regfile[5], regfile.regfile[6], regfile.regfile[30], regfile.regfile[29]);
       $dumpfile("proc_vcd.vcd");
 	    $dumpvars(1, processor);
       #10000 $finish;
