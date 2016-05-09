@@ -7,7 +7,7 @@ processor:
 	iverilog processor.v -o processor.out
 
 time:
-	gtkwave pcomp_vcd.vcd
+	gtkwave proc_vcd.vcd
 
 mem:
 	python2 assembler.py < ${file} > mem.bin
