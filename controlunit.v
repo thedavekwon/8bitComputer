@@ -1,5 +1,4 @@
-module controlunit(
-                   input            clk,
+module controlunit(input            clk,
                    input [2:0]      opcode,
                    output reg [1:0] cntr_alu, /*2-bit, determines alu operation
                                                00 - Add
@@ -19,91 +18,91 @@ module controlunit(
                    output reg       selAccIn, /*mux determines source of accumulator write
                                                 0 - RF
                                                 1 - Immediate, inst[4:0]*/
-                   output reg       selMemIn); /*mux determines source of address accessed in memory
+                   output reg       selMemIn /*mux determines source of address accessed in memory
                                                 b/c von Neumann architecture
                                                 0 - PC
                                                 1 - accumulator */
+                    );
 
-   always @ (opcode) begin
-      case (opcode)
-        3'b000: begin //ACM
-           memWE = 0;
-           regWE = 0;
-           brnch = 0;
-           accWE = 1;
-           selAccIn = 0;
-           selMemIn = 0;
-        end
-        3'b001: begin //ACMI
-           memWE = 0;
-           regWE = 0;
-           brnch = 0;
-           accWE = 1;
-           selAccIn = 1;
-           selMemIn = 0;
-        end
-        3'b010: begin //ADD
-           memWE = 0;
-           regWE = 1;
-           brnch = 0;
-           accWE = 0;
-           selAluIn = 1;
-           lw = 0;
-   		     cntr_alu = 2'b00;
-           selMemIn = 0;
-        end
-        3'b011: begin //NAND
-           memWE = 0;
-           regWE = 1;
-           brnch = 0;
-           accWE = 0;
-           selAluIn = 1;
-           lw = 0;
-           cntr_alu = 2'b01;
-           selMemIn = 0;
-        end
-        3'b100: begin //BNZ
-           memWE = 0;
-           regWE = 1; //Changed
-           lw = 0;
-           brnch = 1;
-           accWE = 0;
-           selAluIn = 0;
-   		     cntr_alu = 2'b10;
-           selMemIn = 0;
-        end
-        3'b101: begin //SLT
-           memWE = 0;
-           regWE = 1;
-           brnch = 0;
-           accWE = 0;
-           selAluIn = 1;
-           lw = 0;
-   		     cntr_alu = 2'b11;
-           selMemIn = 0;
-        end
-        3'b110: begin //SW
-           memWE = 1;
-           regWE = 0;
-           brnch = 0;
-           accWE = 0;
-           selMemIn = 1;
-        end
-        3'b111: begin //LW
-           memWE = 0;
-           regWE = 1;
-           brnch = 0;
-           accWE = 0;
-           lw = 1;
-           selMemIn = 1;
-        end
-   	  endcase
+    always @ (opcode) begin
+        case (opcode)
+            3'b000: begin //ACM
+                memWE = 0;
+                regWE = 0;
+                brnch = 0;
+                accWE = 1;
+                selAccIn = 0;
+                selMemIn = 0;
+            end
+            3'b001: begin //ACMI
+                memWE = 0;
+                regWE = 0;
+                brnch = 0;
+                accWE = 1;
+                selAccIn = 1;
+                selMemIn = 0;
+            end
+            3'b010: begin //ADD
+                memWE = 0;
+                regWE = 1;
+                brnch = 0;
+                accWE = 0;
+                selAluIn = 1;
+                lw = 0;
+                cntr_alu = 2'b00;
+                selMemIn = 0;
+            end
+            3'b011: begin //NAND
+                memWE = 0;
+                regWE = 1;
+                brnch = 0;
+                accWE = 0;
+                selAluIn = 1;
+                lw = 0;
+                cntr_alu = 2'b01;
+                selMemIn = 0;
+            end
+            3'b100: begin //BNZ
+                memWE = 0;
+                regWE = 1; //Changed
+                lw = 0;
+                brnch = 1;
+                accWE = 0;
+                selAluIn = 0;
+                cntr_alu = 2'b10;
+                selMemIn = 0;
+            end
+            3'b101: begin //SLT
+                memWE = 0;
+                regWE = 1;
+                brnch = 0;
+                accWE = 0;
+                selAluIn = 1;
+                lw = 0;
+                cntr_alu = 2'b11;
+                selMemIn = 0;
+            end
+            3'b110: begin //SW
+                memWE = 1;
+                regWE = 0;
+                brnch = 0;
+                accWE = 0;
+                selMemIn = 1;
+            end
+            3'b111: begin //LW
+                memWE = 0;
+                regWE = 1;
+                brnch = 0;
+                accWE = 0;
+                lw = 1;
+                selMemIn = 1;
+            end
+      endcase
     end
 
     initial begin
-       cntr_alu = 0;
-       brnch = 0;
-       selMemIn = 0;
-
+        cntr_alu = 0;
+        brnch = 0;
+        selMemIn = 0;
     end
 endmodule
