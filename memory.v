@@ -11,7 +11,7 @@ module memory(output reg [7:0] data_out, //either instruction or data
     integer i;
 
     initial begin
-        $readmemb("mem.bin", mainmem); //assembled instructions loaded into text segment
+        $readmemb("ram.mem", mainmem); //assembled instructions loaded into text segment
         //for (i=0; i < 5; i=i+1)
             //$display("%d:%b",i,mainmem[i]);
     end

@@ -1,3 +1,5 @@
+ASM:=fact
+
 all: run
 
 run: mem processor
@@ -10,7 +12,7 @@ time:
 	gtkwave proc_vcd.vcd
 
 mem:
-	python2 assembler.py < ${file} > mem.bin
+	python2 assembler.py < $(ASM).asm > ram.mem
 
 clean:
-	rm *.out *.vcd mem.bin
+	rm -rf *.out *.vcd *.mem
